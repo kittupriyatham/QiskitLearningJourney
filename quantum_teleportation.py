@@ -20,9 +20,15 @@ def core_logic(qc, qr, cr):
     """
     Define the quantum gates and measurements here.
     """
-    # Example: Apply Hadamard to the first qubit and measure
-    # qc.h(qr[0])
-    # qc.measure(qr[0], cr[0])
+    # 0. Preparation: Alice prepares a secret payload on qr[0]
+    # For example, let's just make it a '1' state for Bob to receive.
+    qc.x(qr[0])
+    
+    # ----------------------------------------------------
+    # Add your Teleportation Protocol below this line
+    # ----------------------------------------------------
+
+
     pass
 
 def save_circuit_image(qc, script_file):
@@ -46,9 +52,12 @@ def run_simulation(simulator, qc, shots=1):
     return counts
 
 def main():
-    # Number of qubits and classical bits
-    num_qubits = 1
-    num_cbits = 1
+    # 3 Qubits: 
+    # qr[0] = Alice's Payload Qubit
+    # qr[1] = Alice's half of the Bell Pair
+    # qr[2] = Bob's half of the Bell Pair
+    num_qubits = 3 
+    num_cbits = 3  
     
     # 1. Initialize
     simulator, qc, qr, cr = initialize(num_qubits, num_cbits)
@@ -56,11 +65,10 @@ def main():
     # 2. Add Core Logic
     core_logic(qc, qr, cr)
     
-    # 3. Run Simulation (if you want to measure before saving the circuit you can, or vice versa)
-    # result_counts = run_simulation(simulator, qc, shots=1)
+    # 3. Run Simulation 
+    # result_counts = run_simulation(simulator, qc, shots=1024)
     
     # 4. Save Circuit Image
-    # Pass __file__ so the image has the same name as this script
     save_circuit_image(qc, __file__)
 
 if __name__ == "__main__":

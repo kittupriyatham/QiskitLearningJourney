@@ -20,9 +20,27 @@ def core_logic(qc, qr, cr):
     """
     Define the quantum gates and measurements here.
     """
-    # Example: Apply Hadamard to the first qubit and measure
-    # qc.h(qr[0])
-    # qc.measure(qr[0], cr[0])
+    # ----------------------------------------------------
+    # Experiment A (Qubit 0): The "Invisible" X Gate
+    # ----------------------------------------------------
+
+    qc.h(qr[0])
+    qc.x(qr[0])
+
+    qc.h(qr[0])
+
+    # ----------------------------------------------------
+    # Experiment B (Qubit 1): The "Powerful" Z Gate
+    # ----------------------------------------------------
+
+    qc.h(qr[1])
+    qc.z(qr[1])
+    qc.h(qr[1])
+
+
+    # Measure both when you are done
+    qc.measure(qr[0], cr[0])
+    qc.measure(qr[1], cr[1])
     pass
 
 def save_circuit_image(qc, script_file):
@@ -46,9 +64,9 @@ def run_simulation(simulator, qc, shots=1):
     return counts
 
 def main():
-    # Number of qubits and classical bits
-    num_qubits = 1
-    num_cbits = 1
+    # 2 Qubits for 2 parallel experiments
+    num_qubits = 2 
+    num_cbits = 2  
     
     # 1. Initialize
     simulator, qc, qr, cr = initialize(num_qubits, num_cbits)
@@ -56,11 +74,10 @@ def main():
     # 2. Add Core Logic
     core_logic(qc, qr, cr)
     
-    # 3. Run Simulation (if you want to measure before saving the circuit you can, or vice versa)
-    # result_counts = run_simulation(simulator, qc, shots=1)
+    # 3. Run Simulation 
+    result_counts = run_simulation(simulator, qc, shots=1024)
     
     # 4. Save Circuit Image
-    # Pass __file__ so the image has the same name as this script
     save_circuit_image(qc, __file__)
 
 if __name__ == "__main__":

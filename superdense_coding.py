@@ -23,6 +23,19 @@ def core_logic(qc, qr, cr):
     # Example: Apply Hadamard to the first qubit and measure
     # qc.h(qr[0])
     # qc.measure(qr[0], cr[0])
+    qc.h(qr[0])
+    qc.cx(qr[0], qr[1])
+
+    qc.x(qr[0])
+
+    # Phase 3: The Decode (Bob untangles the state)
+    qc.cx(qr[0], qr[1])
+    qc.h(qr[0])
+
+    # Phase 4: The Measurement (Bob reads the message)
+    qc.measure(qr[0], cr[0])
+    qc.measure(qr[1], cr[1])    
+
     pass
 
 def save_circuit_image(qc, script_file):
@@ -37,7 +50,7 @@ def save_circuit_image(qc, script_file):
     except Exception as e:
         print(f"Warning: Failed to save circuit image drawing. Ensure matplotlib and pylatexenc are installed. Error: {e}")
 
-def run_simulation(simulator, qc, shots=1):
+def run_simulation(simulator: AerSimulator, qc: QuantumCircuit, shots=1):
     """
     Runs the circuit on the simulator and returns the result counts.
     """
@@ -47,8 +60,8 @@ def run_simulation(simulator, qc, shots=1):
 
 def main():
     # Number of qubits and classical bits
-    num_qubits = 1
-    num_cbits = 1
+    num_qubits = 2 # Updated for Superdense Coding (Alice & Bob)
+    num_cbits = 2  # Updated to decode the 2-bit message
     
     # 1. Initialize
     simulator, qc, qr, cr = initialize(num_qubits, num_cbits)
@@ -57,7 +70,7 @@ def main():
     core_logic(qc, qr, cr)
     
     # 3. Run Simulation (if you want to measure before saving the circuit you can, or vice versa)
-    # result_counts = run_simulation(simulator, qc, shots=1)
+    result_counts = run_simulation(simulator, qc, shots=1024)
     
     # 4. Save Circuit Image
     # Pass __file__ so the image has the same name as this script

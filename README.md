@@ -50,7 +50,12 @@ This document tracks my progress moving from basic copy-pasting of Qiskit code t
 - **Key Gate:** The Toffoli Gate (`CCX`), acting as a quantum `AND` gate.
 - **Takeaway:** We built a calculator to compute `1 + 1`. We successfully used `CCX` for the "Carry" and `CX` for the "Sum". We also successfully navigated an "Order of Operations" trap by calculating the Carry *before* the XOR gate overwrote our inputs!
 
+### Project 9: Superdense Coding (`superdense_coding.py`)
+- **Concept:** Quantum Communication Protocols (Sending 2 classical bits using 1 qubit).
+- **Key Gates:** `X`, `Z` (for the cipher), and `CX`, `H` (for decoding).
+- **Takeaway:** We proved that an entangled Bell pair acts as a shared resource. We can manipulate *only one* half of the pair to encode a message, and by applying quantum interference (`CX` followed by `H`) before measurement, we can flawlessly decode that hidden superposition back into a 100% deterministic classical state.
+
 ---
 
-## 🔜 Up Next (Tomorrow!)
-- **Project 9 preview:** *Superdense Coding* - Cramming two classical bits of information into a single physical qubit!
+## 🔜 Up Next
+- **Project 10 preview:** *Quantum Teleportation* - Destroying a qubit in one location to instantly rebuild its exact state in another!
