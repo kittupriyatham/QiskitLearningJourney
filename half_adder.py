@@ -18,7 +18,7 @@ def core_logic_cirq(circuit, qubits):
     circuit.append(cirq.X(qubits[0]))
     circuit.append(cirq.X(qubits[1]))
     
-    circuit.append(cirq.CCNOT(qubits[0], qubits[1], qubits[2]))
+    circuit.append(cirq.CCX(qubits[0], qubits[1], qubits[2]))
     circuit.append(cirq.CNOT(qubits[0], qubits[1]))
     
     circuit.append(cirq.measure(*qubits, key='result'))

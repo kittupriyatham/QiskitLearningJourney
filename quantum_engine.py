@@ -180,9 +180,13 @@ def run_azure_qsharp(workspace, device_id, qs_data, shots=1024):
     job = target.submit(executable_program, name="Template_Qsharp_Run", shots=shots)
     print(f"Job ID: {job.id}")
     print("Waiting for results (this may take a moment)...")
-    results = job.get_results()
-    print("Azure Q# Results:", results)
-    return results
+    try:
+        results = job.get_results()
+        print("Azure Q# Results:", results)
+        return results
+    except Exception as e:
+        print(f"Warning: Azure Q# Job failed or timed out. Error: {e}")
+        return {}
 
 
 # ==========================================
